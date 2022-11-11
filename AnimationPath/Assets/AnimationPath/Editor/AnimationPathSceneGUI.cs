@@ -97,7 +97,7 @@ public static class AnimationPathSceneUI
         AnimationUtility.onCurveWasModified += OnCurveWasModified;
         if (keepShow)
         {
-            SceneView.onSceneGUIDelegate = (SceneView.OnSceneFunc)Delegate.Combine(SceneView.onSceneGUIDelegate, new SceneView.OnSceneFunc(OnSceneViewGUI));
+            SceneView.duringSceneGui += OnSceneViewGUI;
         }
 
         enabled = true;
@@ -110,17 +110,17 @@ public static class AnimationPathSceneUI
         enabled = false;
         AnimationWindowUtil.SetOnFrameRateChange(onClipSelectionChanged, true);
         AnimationUtility.onCurveWasModified -= OnCurveWasModified;
-        SceneView.onSceneGUIDelegate = (SceneView.OnSceneFunc)Delegate.RemoveAll(SceneView.onSceneGUIDelegate, new SceneView.OnSceneFunc(OnSceneViewGUI));
+        SceneView.duringSceneGui -= OnSceneViewGUI;
         SceneView.RepaintAll();
     }
 
     public static void SetKeepShow(bool show)
     {
         keepShow = show;
-        SceneView.onSceneGUIDelegate = (SceneView.OnSceneFunc)Delegate.RemoveAll(SceneView.onSceneGUIDelegate, new SceneView.OnSceneFunc(OnSceneViewGUI));
+        SceneView.duringSceneGui -= OnSceneViewGUI;
         if (keepShow)
         {
-            SceneView.onSceneGUIDelegate = (SceneView.OnSceneFunc)Delegate.Combine(SceneView.onSceneGUIDelegate, new SceneView.OnSceneFunc(OnSceneViewGUI));
+            SceneView.duringSceneGui += OnSceneViewGUI;
         }
         SceneView.RepaintAll();
     }
