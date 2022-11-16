@@ -93,7 +93,7 @@ public static class AnimationPathSceneUI
         }
 
         InitPointsInfo();
-        AnimationWindowUtil.SetOnFrameRateChange(onClipSelectionChanged);
+        AnimationWindowUtil.SetOnFrameRateChange(OnClipSelectionChanged);
         AnimationUtility.onCurveWasModified += OnCurveWasModified;
         if (keepShow)
         {
@@ -108,7 +108,7 @@ public static class AnimationPathSceneUI
     {
         selectedPointIndex = -1;
         enabled = false;
-        AnimationWindowUtil.SetOnFrameRateChange(onClipSelectionChanged, true);
+        AnimationWindowUtil.SetOnFrameRateChange(OnClipSelectionChanged, true);
         AnimationUtility.onCurveWasModified -= OnCurveWasModified;
         SceneView.duringSceneGui -= OnSceneViewGUI;
         SceneView.RepaintAll();
@@ -337,7 +337,7 @@ public static class AnimationPathSceneUI
         reloadPointsInfo = true;
     }
 
-    private static void onClipSelectionChanged(float frameRate)
+    private static void OnClipSelectionChanged(float frameRate)
     {
         if (enabled && !keepShow)
         {
